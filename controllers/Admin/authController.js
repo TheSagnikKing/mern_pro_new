@@ -47,8 +47,7 @@ const adminLogin = async (req, res) => {
     // Create secure cookie with refresh token 
     res.cookie('AdminRefreshToken', refreshToken, {
         httpOnly: true, //accessible only by web server 
-        // secure: true, //https
-        // sameSite: 'None', //cross-site cookie 
+        secure: true, 
         maxAge: 1 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
     })
 
@@ -109,8 +108,7 @@ const googleAdminLogin = async (req, res) => {
         // Create secure cookie with refresh token 
         res.cookie('AdminRefreshToken', refreshToken, {
             httpOnly: true, //accessible only by web server 
-            // secure: true, //https
-            // sameSite: 'None', //cross-site cookie 
+            secure: true, //https
             maxAge: 1 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
         })
 
@@ -173,8 +171,7 @@ const adminLogout = (req, res) => {
     if (!cookies?.AdminRefreshToken) return res.status(404).json({ message: "Unauthorize Admin" }) //No content
     res.clearCookie('AdminRefreshToken', {
         httpOnly: true,
-        // sameSite: 'None', 
-        // secure: true 
+        secure: true 
     })
     res.json({ message: 'Admin Cookie cleared' })
 }
@@ -307,8 +304,7 @@ const updateAdmin = async (req, res) => {
     // Create secure cookie with refresh token 
     res.cookie('AdminRefreshToken', refreshToken, {
         httpOnly: true, //accessible only by web server 
-        // secure: true, //https
-        // sameSite: 'None', //cross-site cookie 
+        secure: true, //https
         maxAge: 1 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
     })
 
