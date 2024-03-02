@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const connectDB = require("./config/db")
 const fileUpload = require("express-fileupload");
 const compression = require('compression')
-const path = require('path');
 
 connectDB();
 
@@ -15,12 +14,6 @@ const app = express()
 //     origin: "http://localhost:5173",
 //     credentials: true
 // }))
-
-app.use(express.static('dist'))
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 app.use(express.json())
 app.use(cookieParser());
@@ -58,6 +51,16 @@ app.use('/barber/auth', require('./routes/Barber/authRoute'))
 app.use('/barber/other', require('./routes/Barber/otherRoute'))
 
 const PORT = 8000
+
+const path = require('path');
+
+
+//Always set the code after express.json() and cookie parser
+app.use(express.static('dist'))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 // Generic error handler middleware
 app.use((err, req, res, next) => {
