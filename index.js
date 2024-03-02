@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require("./config/db")
 const fileUpload = require("express-fileupload");
 const compression = require('compression')
+const path = require('path');
 
 connectDB();
 
@@ -16,6 +17,10 @@ const app = express()
 // }))
 
 app.use(express.static('dist'))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 app.use(express.json())
 app.use(cookieParser());
